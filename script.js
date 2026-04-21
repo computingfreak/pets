@@ -1,122 +1,142 @@
-const DOG_BASE_BREEDS = [
-  "Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Bulldog", "Poodle", "Beagle", "Rottweiler", "Dachshund", "Siberian Husky",
-  "Boxer", "Doberman Pinscher", "Great Dane", "Shih Tzu", "Maltese", "Pug", "Chihuahua", "Border Collie", "Pomeranian", "Cocker Spaniel"
-];
-
-const CAT_BASE_BREEDS = [
-  "Maine Coon", "Siamese", "Persian", "Ragdoll", "Bengal", "Abyssinian", "Birman", "Sphynx", "British Shorthair", "Scottish Fold",
-  "American Shorthair", "Russian Blue", "Turkish Angora", "Manx", "Himalayan", "Burmese", "Bombay", "Savannah", "Chartreux", "Ocicat"
-];
-
-const FISH_BASE_BREEDS = [
-  "Betta", "Guppy", "Molly", "Platy", "Swordtail", "Neon Tetra", "Cardinal Tetra", "Ember Tetra", "Black Skirt Tetra", "Serpae Tetra",
-  "Discus", "Angelfish", "Oscar", "Jack Dempsey", "Flowerhorn", "Arowana", "Silver Dollar", "Pacu", "Corydoras", "Pleco",
-  "Bristlenose Pleco", "Otocinclus", "Kuhli Loach", "Clown Loach", "Yoyo Loach", "Zebra Danio", "Pearl Danio", "White Cloud Minnow", "Rainbowfish", "Boesemani Rainbow",
-  "Killifish", "Hatchetfish", "Archerfish", "Pufferfish", "Figure 8 Puffer", "Pea Puffer", "Gourami", "Dwarf Gourami", "Pearl Gourami", "Kissing Gourami",
-  "Barb", "Tiger Barb", "Rosy Barb", "Cherry Barb", "Denison Barb", "Rasbora", "Harlequin Rasbora", "Scissortail Rasbora", "Bala Shark", "Red Tail Shark",
-  "Chinese Algae Eater", "Siamese Algae Eater", "Ghost Catfish", "Glass Catfish", "Synodontis", "African Cichlid", "Mbuna Cichlid", "Peacock Cichlid", "Frontosa", "Kribensis",
-  "Ram Cichlid", "Apistogramma", "Convict Cichlid", "Firemouth Cichlid", "Green Terror", "Severum", "Geophagus", "Uaru", "Arapaima", "Stingray",
-  "Goldfish", "Comet Goldfish", "Shubunkin", "Oranda", "Ryukin", "Fantail", "Black Moor", "Ranchu", "Lionhead", "Bubble Eye",
-  "Koi", "Butterfly Koi", "Doitsu Koi", "Shiro Utsuri", "Tancho Koi", "Medaka", "Ricefish", "Halfbeak", "Endler", "Mosquitofish",
-  "Anchovy", "Sardine", "Mackerel", "Tuna", "Salmon", "Trout", "Cod", "Haddock", "Halibut", "Flounder"
-];
-
-const BIRD_BREEDS = [
-  "Budgerigar", "Cockatiel", "Lovebird", "Canary", "Zebra Finch", "African Grey", "Macaw", "Cockatoo", "Lorikeet", "Conure"
-];
-
-const EXOTIC_PETS = [
-  {
-    type: "Rabbit",
-    breed: "Holland Lop",
-    colors: ["White", "Black", "Brown"],
-    size: "Small",
-    coat: "Short",
-    energy: "Moderate",
-    lifespan: "7-12 years",
-    weight: "1-2 kg",
-    origin: "Netherlands",
-    identify: ["Floppy ears", "Rounded head", "Compact body"],
-    bestFor: "Indoor homes with gentle handling.",
-    photo: "https://picsum.photos/seed/hollandlop/900/600"
-  }
-];
-
-const TARGET_COUNTS = {
-  Dog: 500,
-  Cat: 500,
-  Fish: 1000,
-  Bird: 100
+const ANIMAL_CATALOG = {
+  Dog: [
+    "Labrador Retriever", "German Shepherd", "Golden Retriever", "French Bulldog", "Poodle", "Beagle", "Rottweiler", "Dachshund", "Siberian Husky", "Border Collie",
+    "Boxer", "Doberman Pinscher", "Great Dane", "Shih Tzu", "Chihuahua", "Pug", "Cocker Spaniel", "Akita", "Dalmatian", "Samoyed"
+  ],
+  Cat: [
+    "Maine Coon", "Siamese", "Persian", "Ragdoll", "Bengal", "Abyssinian", "Birman", "Sphynx", "British Shorthair", "Scottish Fold",
+    "Russian Blue", "Turkish Angora", "Manx", "Himalayan", "Burmese", "Bombay", "Savannah", "Chartreux", "Ocicat", "Norwegian Forest Cat"
+  ],
+  Fish: [
+    "Betta", "Guppy", "Molly", "Platy", "Swordtail", "Neon Tetra", "Cardinal Tetra", "Discus", "Angelfish", "Oscar",
+    "Pleco", "Corydoras", "Clown Loach", "Zebra Danio", "Rainbowfish", "Pufferfish", "Gourami", "Tiger Barb", "Goldfish", "Koi"
+  ],
+  Bird: [
+    "Budgerigar", "Cockatiel", "Lovebird", "Canary", "Zebra Finch", "African Grey Parrot", "Macaw", "Cockatoo", "Conure", "Lorikeet",
+    "Pigeon", "Dove", "Parrotlet", "Quaker Parrot", "Indian Ringneck", "Toucan", "Mynah", "Rosella", "Kakariki", "Eclectus Parrot"
+  ],
+  Rabbit: ["Holland Lop", "Netherland Dwarf", "Lionhead", "Mini Rex", "Flemish Giant", "English Lop", "Rex Rabbit", "Californian Rabbit"],
+  Hamster: ["Syrian Hamster", "Winter White Dwarf Hamster", "Campbell's Dwarf Hamster", "Roborovski Hamster", "Chinese Hamster"],
+  GuineaPig: ["American Guinea Pig", "Abyssinian Guinea Pig", "Peruvian Guinea Pig", "Silkie Guinea Pig", "Teddy Guinea Pig"],
+  Ferret: ["Standard Ferret", "Angora Ferret", "European Polecat Ferret"],
+  Turtle: ["Red-eared Slider", "Painted Turtle", "Musk Turtle", "Map Turtle", "Box Turtle"],
+  Snake: ["Corn Snake", "Ball Python", "King Snake", "Milk Snake", "Rosy Boa"],
+  Lizard: ["Leopard Gecko", "Bearded Dragon", "Crested Gecko", "Blue-tongued Skink", "Uromastyx"],
+  Frog: ["Pacman Frog", "Whites Tree Frog", "Poison Dart Frog", "Tomato Frog"],
+  Crab: ["Hermit Crab", "Halloween Moon Crab", "Red Claw Crab"],
+  Shrimp: ["Cherry Shrimp", "Amano Shrimp", "Ghost Shrimp", "Crystal Red Shrimp"],
+  Horse: ["Arabian Horse", "Thoroughbred", "Quarter Horse", "Friesian", "Appaloosa"],
+  Goat: ["Pygmy Goat", "Nigerian Dwarf Goat", "Boer Goat", "Alpine Goat"],
+  Pig: ["Pot-bellied Pig", "KuneKune", "Mini Juliana Pig"],
+  Chicken: ["Silkie", "Polish Chicken", "Brahma", "Leghorn", "Orpington"],
+  Duck: ["Call Duck", "Pekin Duck", "Muscovy Duck", "Mallard"],
+  Hedgehog: ["African Pygmy Hedgehog"]
 };
 
 const SIZE_BY_INDEX = ["Small", "Medium", "Large"];
 const ENERGY_BY_INDEX = ["Low", "Moderate", "High", "Very High"];
-const COLOR_MAP = {
-  Dog: ["Black", "Brown", "White", "Golden", "Gray", "Cream", "Red"],
-  Cat: ["Black", "White", "Blue", "Cream", "Brown", "Orange", "Silver"],
-  Fish: ["Blue", "Red", "Yellow", "Silver", "Black", "Orange", "Green"],
-  Bird: ["Green", "Yellow", "Blue", "White", "Red", "Gray", "Black"]
-};
-const COAT_MAP = {
+
+const COAT_BY_TYPE = {
   Dog: ["Short", "Medium", "Long", "Wire", "Curly"],
   Cat: ["Short", "Long", "Semi-long", "Curly", "Hairless"],
   Fish: ["Scales"],
-  Bird: ["Feathers"]
+  Bird: ["Feathers"],
+  Rabbit: ["Short", "Long"],
+  Hamster: ["Short", "Long"],
+  GuineaPig: ["Short", "Long", "Wire"],
+  Ferret: ["Short", "Long"],
+  Turtle: ["Shell"],
+  Snake: ["Scales"],
+  Lizard: ["Scales"],
+  Frog: ["Skin"],
+  Crab: ["Exoskeleton"],
+  Shrimp: ["Exoskeleton"],
+  Horse: ["Short"],
+  Goat: ["Short", "Long"],
+  Pig: ["Sparse Hair"],
+  Chicken: ["Feathers"],
+  Duck: ["Feathers"],
+  Hedgehog: ["Spines"]
 };
 
-function expandBreedList(baseBreeds, targetCount, label) {
-  const results = [];
-  for (let i = 0; i < targetCount; i += 1) {
-    const base = baseBreeds[i % baseBreeds.length];
-    if (i < baseBreeds.length) {
-      results.push(base);
-    } else {
-      const generation = Math.floor(i / baseBreeds.length) + 1;
-      results.push(`${base} (${label} Line ${generation})`);
-    }
-  }
-  return results;
-}
+const COLORS = ["Black", "White", "Brown", "Golden", "Gray", "Cream", "Red", "Blue", "Orange", "Silver", "Green", "Yellow"];
 
 function pickThree(values, i) {
-  return [values[i % values.length], values[(i + 2) % values.length], values[(i + 4) % values.length]];
+  return [values[i % values.length], values[(i + 3) % values.length], values[(i + 6) % values.length]];
 }
 
-function makeBreed(type, breed, index) {
-  const coats = COAT_MAP[type];
-  const colors = COLOR_MAP[type];
+function normalizeType(type) {
+  return type.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
+
+function buildBreed(type, breed, index) {
+  const coats = COAT_BY_TYPE[type] || ["Varies"];
   return {
-    type,
+    type: normalizeType(type),
     breed,
-    colors: pickThree(colors, index),
+    colors: pickThree(COLORS, index),
     size: SIZE_BY_INDEX[index % SIZE_BY_INDEX.length],
     coat: coats[index % coats.length],
     energy: ENERGY_BY_INDEX[index % ENERGY_BY_INDEX.length],
-    lifespan: `${6 + (index % 8)}-${10 + (index % 10)} years`,
-    weight: `${1 + (index % 12)}-${3 + (index % 20)} kg`,
+    lifespan: `${5 + (index % 10)}-${10 + (index % 10)} years`,
+    weight: `${1 + (index % 20)}-${3 + (index % 30)} kg`,
     origin: "Various",
     identify: [
-      `${breed} head profile and face geometry`,
-      `${coats[index % coats.length]} covering with distinguishing color pattern`,
-      `${type.toLowerCase()} body shape and movement signature`
+      `${breed} head and face profile`,
+      `${coats[index % coats.length]} texture and visible body covering`,
+      `${normalizeType(type)} body shape and movement pattern`
     ],
-    bestFor: `Owners able to provide ${type.toLowerCase()}-appropriate care, enrichment, and habitat.`,
-    photo: `https://picsum.photos/seed/${encodeURIComponent(type + '-' + breed)}/900/600`
+    bestFor: `Owners who can provide species-appropriate habitat, enrichment, and veterinary care.`
   };
 }
 
-const DOG_BREEDS = expandBreedList(DOG_BASE_BREEDS, TARGET_COUNTS.Dog, "Dog");
-const CAT_BREEDS = expandBreedList(CAT_BASE_BREEDS, TARGET_COUNTS.Cat, "Cat");
-const FISH_BREEDS = expandBreedList(FISH_BASE_BREEDS, TARGET_COUNTS.Fish, "Fish");
-const FULL_BIRD_BREEDS = expandBreedList(BIRD_BREEDS, TARGET_COUNTS.Bird, "Bird");
+const breeds = Object.entries(ANIMAL_CATALOG).flatMap(([type, breedList]) =>
+  breedList.map((breed, index) => buildBreed(type, breed, index))
+);
 
-const breeds = [
-  ...DOG_BREEDS.map((breed, index) => makeBreed("Dog", breed, index)),
-  ...CAT_BREEDS.map((breed, index) => makeBreed("Cat", breed, index)),
-  ...FISH_BREEDS.map((breed, index) => makeBreed("Fish", breed, index)),
-  ...FULL_BIRD_BREEDS.map((breed, index) => makeBreed("Bird", breed, index)),
-  ...EXOTIC_PETS
-];
+const imageCache = new Map();
+
+function svgFallbackDataUrl(item) {
+  const text = `${item.type}: ${item.breed}`;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'><rect width='100%' height='100%' fill='#e8eef8'/><text x='50%' y='45%' text-anchor='middle' font-size='46' fill='#1f3a5a' font-family='Arial'>${text}</text><text x='50%' y='54%' text-anchor='middle' font-size='24' fill='#52647d' font-family='Arial'>Reference image unavailable</text></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+async function fetchWikipediaImage(query) {
+  const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+  const response = await fetch(url);
+  if (!response.ok) return null;
+  const data = await response.json();
+  return data?.thumbnail?.source || null;
+}
+
+async function resolveBreedImage(item) {
+  const cacheKey = `${item.type}|${item.breed}`;
+  if (imageCache.has(cacheKey)) return imageCache.get(cacheKey);
+
+  const queries = [
+    item.breed,
+    `${item.breed} ${item.type}`,
+    `${item.type} ${item.breed}`,
+    item.type
+  ];
+
+  for (const query of queries) {
+    try {
+      const image = await fetchWikipediaImage(query);
+      if (image) {
+        imageCache.set(cacheKey, image);
+        return image;
+      }
+    } catch (_) {
+      // Ignore and try next query
+    }
+  }
+
+  const fallback = svgFallbackDataUrl(item);
+  imageCache.set(cacheKey, fallback);
+  return fallback;
+}
 
 const grid = document.getElementById("breedGrid");
 const cardTemplate = document.getElementById("cardTemplate");
@@ -198,8 +218,12 @@ function renderCards(items) {
   items.forEach((item) => {
     const node = cardTemplate.content.cloneNode(true);
     const imageEl = node.querySelector(".breed-image");
-    imageEl.src = item.photo;
+    imageEl.src = svgFallbackDataUrl(item);
     imageEl.alt = `${item.breed} (${item.type})`;
+
+    resolveBreedImage(item).then((resolvedUrl) => {
+      imageEl.src = resolvedUrl;
+    });
 
     node.querySelector(".breed-name").textContent = item.breed;
     node.querySelector(".pet-type").textContent = item.type;
