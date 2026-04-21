@@ -1,0 +1,151 @@
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --text: #1d2733;
+  --muted: #556273;
+  --accent: #2f77f2;
+  --border: #d8e0ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.hero {
+  text-align: center;
+  padding: 2.5rem 1rem 1.75rem;
+  background: linear-gradient(150deg, #e8f0ff, #fef4fb);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0.8rem auto 0;
+  color: var(--muted);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+input,
+select,
+button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.58rem 0.7rem;
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+button:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 30%, white);
+  outline-offset: 1px;
+}
+
+.reset-btn {
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  align-self: end;
+}
+
+.result-count {
+  margin: 0.2rem 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.breed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(21 40 69 / 6%);
+}
+
+.breed-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 0.9rem;
+}
+
+.breed-name {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.pet-type {
+  margin: 0.2rem 0 0.65rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+h3 {
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.stat-list li,
+.trait-list li,
+.best-for {
+  font-size: 0.9rem;
+  color: #334357;
+}
+
+.best-for {
+  margin: 0;
+}

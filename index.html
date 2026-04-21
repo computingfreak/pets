@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Breed Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Pet Breed Explorer</h1>
+      <p>
+        Explore 200+ pet breeds (including 100 dog and 100 cat breeds), learn key identification traits, and
+        filter by color, size, coat, and energy level.
+      </p>
+    </header>
+
+    <main>
+      <section class="filters" aria-label="Filter pets">
+        <div class="filter-group">
+          <label for="search">Search breed or trait</label>
+          <input id="search" type="search" placeholder="e.g., tabby, floppy ears, short coat" />
+        </div>
+
+        <div class="filter-group">
+          <label for="typeFilter">Pet type</label>
+          <select id="typeFilter">
+            <option value="all">All types</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="colorFilter">Primary color</label>
+          <select id="colorFilter">
+            <option value="all">All colors</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="sizeFilter">Size</label>
+          <select id="sizeFilter">
+            <option value="all">All sizes</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="coatFilter">Coat type</label>
+          <select id="coatFilter">
+            <option value="all">All coats</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="energyFilter">Energy level</label>
+          <select id="energyFilter">
+            <option value="all">All levels</option>
+          </select>
+        </div>
+
+        <button id="resetBtn" class="reset-btn">Reset filters</button>
+      </section>
+
+      <section>
+        <p id="resultCount" class="result-count"></p>
+        <div id="breedGrid" class="breed-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <template id="cardTemplate">
+      <article class="card">
+        <img class="breed-image" alt="" loading="lazy" />
+        <div class="card-body">
+          <h2 class="breed-name"></h2>
+          <p class="pet-type"></p>
+          <ul class="stat-list"></ul>
+          <h3>How to identify</h3>
+          <ul class="trait-list"></ul>
+          <h3>Best for</h3>
+          <p class="best-for"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
