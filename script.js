@@ -44,6 +44,19 @@ const CAT_BREEDS = [
   "Red Point Siamese", "Longhair Domestic", "Shorthair Domestic", "Forest Siberian", "Siberian Cat"
 ];
 
+const BIRD_BREEDS = [
+  "Budgerigar", "Cockatiel", "Lovebird", "Canary", "Zebra Finch", "Gouldian Finch", "Society Finch", "Java Sparrow", "Parrotlet", "Green-cheeked Conure",
+  "Sun Conure", "Jenday Conure", "Nanday Conure", "Blue-crowned Conure", "Meyer\'s Parrot", "Senegal Parrot", "Cape Parrot", "African Grey", "Timneh Grey", "Eclectus Parrot",
+  "Amazon Parrot", "Blue-fronted Amazon", "Yellow-naped Amazon", "Double Yellow-headed Amazon", "Rainbow Lorikeet", "Red Lory", "Moluccan Cockatoo", "Umbrella Cockatoo", "Goffin\'s Cockatoo", "Cockatoo",
+  "Macaw", "Blue-and-gold Macaw", "Scarlet Macaw", "Green-winged Macaw", "Hyacinth Macaw", "Caique", "Pionus", "Quaker Parrot", "Indian Ringneck", "Alexandrine Parakeet",
+  "Bourke\'s Parakeet", "Rosella", "Princess Parrot", "Turquoise Parrot", "Kakariki", "Lineolated Parakeet", "Monk Parakeet", "Lorikeet", "Parakeet", "Poicephalus",
+  "Diamond Dove", "Ringneck Dove", "White Dove", "Pigeon", "Fantail Pigeon", "King Pigeon", "Racing Pigeon", "Mynah", "Starling", "Toucan",
+  "Toucanet", "Toco Toucan", "Button Quail", "Coturnix Quail", "Chinese Painted Quail", "Pheasant", "Golden Pheasant", "Lady Amherst\'s Pheasant", "Peafowl", "Guinea Fowl",
+  "Helmeted Guinea Fowl", "Swan Goose", "Domestic Duck", "Call Duck", "Crested Duck", "Muscovy Duck", "Mallard", "Bantam Chicken", "Silkie Chicken", "Polish Chicken",
+  "Cockatoo Finch", "Waxbill", "Paradise Whydah", "Firefinch", "Red Avadavat", "European Goldfinch", "Siskin", "Bullfinch", "Crossbill", "Linnet",
+  "Skylark", "Meadowlark", "Nightingale", "Mockingbird", "Robin", "Bluebird", "Wren", "Sparrow", "Swallow", "Swift"
+];
+
 const EXOTIC_PETS = [
   {
     type: "Rabbit",
@@ -57,21 +70,7 @@ const EXOTIC_PETS = [
     origin: "Netherlands",
     identify: ["Distinctive floppy ears", "Compact body", "Rounded head profile"],
     bestFor: "Indoor homes with gentle handling and daily enrichment.",
-    photo: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=900&q=80"
-  },
-  {
-    type: "Bird",
-    breed: "Budgerigar (Budgie)",
-    colors: ["Green", "Yellow", "Blue", "White"],
-    size: "Small",
-    coat: "Feathers",
-    energy: "High",
-    lifespan: "7-15 years",
-    weight: "30-40 g",
-    origin: "Australia",
-    identify: ["Small parrot with long tapered tail", "Wavy wing markings", "Curved hooked beak"],
-    bestFor: "Owners able to provide social interaction and flight-safe space.",
-    photo: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?auto=format&fit=crop&w=900&q=80"
+    photo: "https://loremflickr.com/900/600/rabbit,hollandlop?lock=5001"
   },
   {
     type: "Fish",
@@ -85,68 +84,89 @@ const EXOTIC_PETS = [
     origin: "Southeast Asia",
     identify: ["Flowing fins", "Surface-air breathing behavior", "Territorial display in males"],
     bestFor: "Beginner aquariums with filtered, heated tanks.",
-    photo: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=900&q=80"
+    photo: "https://loremflickr.com/900/600/betta,fish?lock=5002"
   }
 ];
 
 const SIZE_BY_INDEX = ["Small", "Medium", "Large"];
 const ENERGY_BY_INDEX = ["Low", "Moderate", "High", "Very High"];
-
 const DOG_COATS = ["Short", "Medium", "Long", "Wire", "Curly"];
 const CAT_COATS = ["Short", "Long", "Semi-long", "Curly", "Hairless"];
-
+const BIRD_COATS = ["Feathers", "Feathers", "Feathers", "Feathers", "Feathers"];
 const DOG_COLORS = ["Black", "Brown", "White", "Golden", "Gray", "Cream", "Red"];
 const CAT_COLORS = ["Black", "White", "Blue", "Cream", "Brown", "Orange", "Silver"];
+const BIRD_COLORS = ["Green", "Yellow", "Blue", "Red", "White", "Gray", "Black"];
 
 function pickThree(values, i) {
   return [values[i % values.length], values[(i + 2) % values.length], values[(i + 4) % values.length]];
 }
 
-function buildDogBreed(breed, index) {
-  return {
-    type: "Dog",
-    breed,
-    colors: pickThree(DOG_COLORS, index),
-    size: SIZE_BY_INDEX[index % SIZE_BY_INDEX.length],
-    coat: DOG_COATS[index % DOG_COATS.length],
-    energy: ENERGY_BY_INDEX[index % ENERGY_BY_INDEX.length],
-    lifespan: `${10 + (index % 6)}-${13 + (index % 6)} years`,
-    weight: `${4 + (index % 15)}-${8 + (index % 20)} kg`,
-    origin: "Various",
-    identify: [
-      `${breed} head and muzzle profile`,
-      `Typical ${DOG_COATS[index % DOG_COATS.length].toLowerCase()} coat texture`,
-      `${SIZE_BY_INDEX[index % SIZE_BY_INDEX.length]} build and tail carriage`
-    ],
-    bestFor: "Homes that can provide breed-appropriate training, exercise, and socialization.",
-    photo: `https://placedog.net/900/600?id=${index + 1}`
-  };
+function svgFallbackDataUrl(item) {
+  const label = encodeURIComponent(`${item.type}: ${item.breed}`);
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='600'><rect width='100%' height='100%' fill='#e8eef8'/><text x='50%' y='48%' text-anchor='middle' font-size='42' fill='#274060' font-family='Arial'>${label}</text><text x='50%' y='56%' text-anchor='middle' font-size='24' fill='#52647d' font-family='Arial'>Image unavailable</text></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${svg}`;
 }
 
-function buildCatBreed(breed, index) {
+function breedPhoto(type, breed, index) {
+  const tags = `${type.toLowerCase()},${breed.toLowerCase().replace(/\s+/g, "")}`;
+  return `https://loremflickr.com/900/600/${tags}?lock=${index + 1}`;
+}
+
+function buildBreed({ type, breed, index, colors, coats, origin, bestFor }) {
   return {
-    type: "Cat",
+    type,
     breed,
-    colors: pickThree(CAT_COLORS, index),
+    colors: pickThree(colors, index),
     size: SIZE_BY_INDEX[index % SIZE_BY_INDEX.length],
-    coat: CAT_COATS[index % CAT_COATS.length],
-    energy: ENERGY_BY_INDEX[(index + 1) % ENERGY_BY_INDEX.length],
-    lifespan: `${11 + (index % 6)}-${15 + (index % 7)} years`,
-    weight: `${2 + (index % 5)}-${4 + (index % 7)} kg`,
-    origin: "Various",
+    coat: coats[index % coats.length],
+    energy: ENERGY_BY_INDEX[index % ENERGY_BY_INDEX.length],
+    lifespan: `${8 + (index % 8)}-${12 + (index % 8)} years`,
+    weight: `${1 + (index % 10)}-${3 + (index % 18)} kg`,
+    origin,
     identify: [
-      `${breed} ear and face shape`,
-      `Distinct ${CAT_COATS[index % CAT_COATS.length].toLowerCase()} coat and pattern`,
-      `Body proportions and gait typical to ${breed}`
+      `${breed} face and head profile`,
+      `${coats[index % coats.length]} covering and coloration pattern`,
+      `Body proportion and movement typical of ${breed}`
     ],
-    bestFor: "Owners seeking interactive enrichment and consistent daily care.",
-    photo: `https://cataas.com/cat?width=900&height=600&random=${index + 1}`
+    bestFor,
+    photo: breedPhoto(type, breed, index)
   };
 }
 
 const breeds = [
-  ...DOG_BREEDS.map(buildDogBreed),
-  ...CAT_BREEDS.map(buildCatBreed),
+  ...DOG_BREEDS.map((breed, index) =>
+    buildBreed({
+      type: "Dog",
+      breed,
+      index,
+      colors: DOG_COLORS,
+      coats: DOG_COATS,
+      origin: "Various",
+      bestFor: "Homes that can provide structured exercise, training, and socialization."
+    })
+  ),
+  ...CAT_BREEDS.map((breed, index) =>
+    buildBreed({
+      type: "Cat",
+      breed,
+      index,
+      colors: CAT_COLORS,
+      coats: CAT_COATS,
+      origin: "Various",
+      bestFor: "Owners looking for daily enrichment, play, and predictable routines."
+    })
+  ),
+  ...BIRD_BREEDS.map((breed, index) =>
+    buildBreed({
+      type: "Bird",
+      breed,
+      index,
+      colors: BIRD_COLORS,
+      coats: BIRD_COATS,
+      origin: "Various",
+      bestFor: "Keepers who can provide social stimulation and species-appropriate aviary space."
+    })
+  ),
   ...EXOTIC_PETS
 ];
 
@@ -234,7 +254,7 @@ function renderCards(items) {
     imageEl.alt = `${item.breed} (${item.type})`;
     imageEl.onerror = () => {
       imageEl.onerror = null;
-      imageEl.src = `https://picsum.photos/seed/${encodeURIComponent(item.breed + index)}/900/600`;
+      imageEl.src = svgFallbackDataUrl(item);
     };
 
     node.querySelector(".breed-name").textContent = item.breed;
